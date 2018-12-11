@@ -55,7 +55,7 @@ dt = datetime.datetime.now()
 #For loop that iterates through a list of zips and makes api calls
 for i in zips:
     #build the url using the predetermined end point as well as out iterated zip and the api key
-    ur = "http://api.openweathermap.org/data/2.5/weather?zip=" + i + ",us" + "&appid=" + akey
+    ur = "http://api.openweathermap.org/data/2.5/weather?units=imperial&zip=" + i + ",us" + "&appid=" + akey
     
     #send the request for the api data
     resp = rq.get(ur)
@@ -71,7 +71,7 @@ for i in zips:
 
     #sub loop that iterates through all the column names and adds the appropriate prefix
     for t in range(len(gen_nms)):
-        gen_nms[t] = 'gen.' + gen_nms[t]
+        gen_nms[t] = 'gen.'_+ gen_nms[t]
     
     #write the new names to the generated df
     gen_weath.columns = gen_nms
@@ -81,21 +81,21 @@ for i in zips:
     sys_weath = json_normalize(data['sys'])
     sys_nms = list(sys_weath)
     for r in range(len(sys_nms)):
-        sys_nms[r] = 'sys.' + sys_nms[r]
+        sys_nms[r] = 'sys_' + sys_nms[r]
     sys_weath.columns = sys_nms
     
     #'weather weather' table
     w_weath = json_normalize(data['weather'])
     w_nms = list(w_weath)
     for y in range(len(w_nms)):
-        w_nms[y] = 'weath.' + w_nms[y]
+        w_nms[y] = 'weath_' + w_nms[y]
     w_weath.columns = w_nms
     
     #'wind weather' table
     wind_weath = json_normalize(data['wind'])
     wind_nms = list(wind_weath)
     for z in range(len(wind_nms)):
-        wind_nms[z] = 'wind.' + wind_nms[z]
+        wind_nms[z] = 'wind_' + wind_nms[z]
     wind_weath.columns = wind_nms
     
     #Checking for optionally added rain and snow information
@@ -152,12 +152,12 @@ for i in zips:
 
     sn_nms = list(sn_weath)
     for a in range(len(sn_nms)):
-        sn_nms[a] = 'snow.' + sn_nms[a]
+        sn_nms[a] = 'snow_' + sn_nms[a]
     sn_weath.columns = sn_nms
     
     rn_nms = list(rn_weath)
     for j in range(len(rn_nms)):
-        rn_nms[j] = 'rain.' + rn_nms[j]
+        rn_nms[j] = 'rain_' + rn_nms[j]
     rn_weath.columns = rn_nms
     
     
